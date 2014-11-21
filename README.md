@@ -11,6 +11,8 @@ The module uses the Nokia 5110 display which can be easily acquired online. A fe
   * [Adafruit](https://www.adafruit.com/products/338)
   * [Ebay](http://www.ebay.com/sch/i.html?_from=R40&_trksid=p2050601.m570.l1313.TR6.TRC1.A0.H0.Xnokia+5110&_nkw=nokia+5110&_sacat=0)
 
+For connection information I followed the [wiring guide](https://learn.sparkfun.com/tutorials/graphic-lcd-hookup-guide) from Sparkfun.
+
 ### Installation
 ```sh
 npm install tessel-nokia5110
