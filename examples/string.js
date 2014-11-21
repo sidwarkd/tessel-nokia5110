@@ -7,8 +7,6 @@ the Nokia 5110 screen connected to port D
 *********************************************/
 
 var tessel = require('tessel');
-var async = require('async');
-
 var nokia5110 = require('../').use(tessel.port['D']);
 
 nokia5110.on('ready', function(){

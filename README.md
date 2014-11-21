@@ -19,7 +19,6 @@ npm install tessel-nokia5110
 ### Example
 ```js
 var tessel = require('tessel');
-var async = require('async');
 
 // Screen is connected to port D
 var nokia5110 = require('tessel-nokia5110').use(tessel.port['D']);

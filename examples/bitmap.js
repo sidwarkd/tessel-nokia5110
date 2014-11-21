@@ -8,7 +8,6 @@ Port D
 *********************************************/
 
 var tessel = require('tessel');
-var async = require('async');
 
 // The Tessel logo transformed to a byte array by LCD Assistant
 // http://en.radzio.dxp.pl/bitmap_converter/
