@@ -205,24 +205,37 @@ Nokia5110.prototype.gotoXY = function (x, y, cb){
 Nokia5110.prototype.character = function (character, cb){
   var self = this;
   var charIndex = character.charCodeAt(0) - 0x20;
+  this.rawCharacter(ASCII[charIndex], cb);
+};
+
+/**
+ * Print a raw character data
+ *
+ * @params  array     character   Pixel data for character as defined in ASCII
+ *                                array
+ * @params  function  cb          Completition callback function
+ */
+Nokia5110.prototype.rawCharacter = function (character, cb){
+  var self = this;
+  //var charIndex = character.charCodeAt(0) - 0x20;
   async.series([
     function(callback){
       self._lcdWrite(LCD_DATA, 0x00, callback);
     },
     function(callback){
-      self._lcdWrite(LCD_DATA, ASCII[charIndex][0], callback);
+      self._lcdWrite(LCD_DATA, character[0], callback);
     },
     function(callback){
-      self._lcdWrite(LCD_DATA, ASCII[charIndex][1], callback);
+      self._lcdWrite(LCD_DATA, character[1], callback);
     },
     function(callback){
-      self._lcdWrite(LCD_DATA, ASCII[charIndex][2], callback);
+      self._lcdWrite(LCD_DATA, character[2], callback);
     },
     function(callback){
-      self._lcdWrite(LCD_DATA, ASCII[charIndex][3], callback);
+      self._lcdWrite(LCD_DATA, character[3], callback);
     },
     function(callback){
-      self._lcdWrite(LCD_DATA, ASCII[charIndex][4], callback);
+      self._lcdWrite(LCD_DATA, character[4], callback);
     },
   ], function(err, results){
     cb(err);
