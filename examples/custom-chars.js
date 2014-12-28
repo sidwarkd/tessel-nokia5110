@@ -8,7 +8,7 @@ the Nokia 5110 screen connected to port D
 
 var tessel = require('tessel');
 var nokia5110 = require('../').use(tessel.port.D);
-var degeeSign = [0x00,0x06,0x09,0x06,0x00];
+var degreeSign = [0x00,0x06,0x09,0x06,0x00];
 
 nokia5110.on('ready', function(){
   nokia5110.clear(function(){
