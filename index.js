@@ -213,7 +213,7 @@ Nokia5110.prototype.character = function (character, cb){
  *
  * @params  array     character   Pixel data for character as defined in ASCII
  *                                array
- * @params  function  cb          Completition callback function
+ * @params  function  cb          Completion callback function
  */
 Nokia5110.prototype.rawCharacter = function (character, cb){
   var self = this;
