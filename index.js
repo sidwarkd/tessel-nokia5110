@@ -682,6 +682,25 @@ Nokia5110.prototype.clrCircle = function(x, y, radius){
   }
 };
 
+// Unlike _print_char this function doesn't allow you to put a character
+// absolutely anywhere. It limits you to the 5110's y lines (0-5). This
+// function will be the base of the next version of character printing
+// as it is significantly faster than _print_char.
+
+// character - a 5 byte encoding of pixels to create a character.
+Nokia5110.prototype.rawCharacter = function(character, x, line){
+  if(x < 0 || x > 83)
+    x = 0;
+  if(line < 0 || line > 5)
+    line = 0;
+
+  // Set the start index based on x and line
+  var scrbufIndex = (line * 84) + x;
+
+  for(var i = 0; i < character.length; i++)
+    this.scrbuf[scrbufIndex++] = character[i];
+};
+
 Nokia5110.prototype.drawBitmap = function (x, y, bitmap, sx, sy){
   var bit;
   var data;
