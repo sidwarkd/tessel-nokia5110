@@ -1,6 +1,6 @@
 {
   "name": "tessel-nokia5110",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Nokia 5110 display for Tessel",
   "main": "index.js",
   "directories": {
