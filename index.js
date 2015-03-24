@@ -1,5 +1,4 @@
 var tessel = require('tessel');
-var async = require('async');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 var fonts = require('./fonts.js');
