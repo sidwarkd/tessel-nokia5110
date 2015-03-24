@@ -80,6 +80,7 @@ var tessel = require('tessel');
 var nokia5110 = require('../').use(tessel.port['D']);
 
 nokia5110.on('ready', function(){
+  //nokia5110.setBacklight(true);
   drawLogo(function(){
     demoIntro(function(){
       drawLines(function(){

@@ -49,7 +49,7 @@ function Nokia5110 (hardware, cb){
   self.dc = hardware.pin['G2'].output().low();
   self.backlight = hardware.pin['G3'].output().low();
 
-  self.scrbuf = new Array(504);
+  self.scrbuf = new Buffer(504);
 
   // Default the font to SmallFont in fonts.js
   self.fonts = fonts;
@@ -75,7 +75,7 @@ function Nokia5110 (hardware, cb){
     var self = this;
     self.dc.output(mode);
     self.sce.low();
-    self.spi.send(new Buffer(data), function (err){
+    self.spi.send(data, function (err){
       self.sce.high();
       cb(err);
     });
@@ -91,7 +91,7 @@ function Nokia5110 (hardware, cb){
     PCD8544_SETXADDR,
     PCD8544_DISPLAYCONTROL | PCD8544_DISPLAYNORMAL
   ];
-  self._lcdWrite(LCD_COMMAND, initCommands, function(err){
+  self._lcdWrite(LCD_COMMAND, new Buffer(initCommands), function(err){
     self.emit('ready');
     if(cb)
       cb(err, self);
@@ -106,7 +106,7 @@ Nokia5110.prototype.setMode = function(mode, cb){
   if(mode != PCD8544_DISPLAYALLON && mode != PCD8544_DISPLAYNORMAL && mode != PCD8544_DISPLAYINVERTED && mode != PCD8544_DISPLAYBLANK)
     cb("Invalid Mode");
   else{
-    this._lcdWrite(LCD_COMMAND, [PCD8544_DISPLAYCONTROL | mode], function(err){
+    this._lcdWrite(LCD_COMMAND, new Buffer([PCD8544_DISPLAYCONTROL | mode]), function(err){
       if(cb)
         cb(err);
     });
@@ -115,7 +115,7 @@ Nokia5110.prototype.setMode = function(mode, cb){
 
 Nokia5110.prototype.update = function(cb){
   var self = this;
-  self._lcdWrite(LCD_COMMAND, [PCD8544_SETYADDR, PCD8544_SETXADDR], function(err){
+  self._lcdWrite(LCD_COMMAND, new Buffer([PCD8544_SETYADDR, PCD8544_SETXADDR]), function(err){
     if(err)
       cb(err);
     else{
@@ -143,9 +143,9 @@ Nokia5110.prototype.setContrast = function(contrast, cb){
   if(contrast < 0)
     contrast = 0;
 
-  var commands = [PCD8544_FUNCTIONSET | PCD8544_EXTENDEDINSTRUCTION,
+  var commands = new Buffer([PCD8544_FUNCTIONSET | PCD8544_EXTENDEDINSTRUCTION,
     PCD8544_SETVOP | contrast,
-    PCD8544_FUNCTIONSET];
+    PCD8544_FUNCTIONSET]);
 
   this._lcdWrite(LCD_COMMAND, commands, function(err){
     if(cb)
@@ -699,6 +699,18 @@ Nokia5110.prototype.rawCharacter = function(character, x, line){
 
   for(var i = 0; i < character.length; i++)
     this.scrbuf[scrbufIndex++] = character[i];
+};
+
+Nokia5110.prototype.rawPrint = function(str, x, line){
+  var scrbufIndex = (line * 84) + x;
+  for(var i = 0; i < str.length; i++){
+    var charIndex = (str[i].charCodeAt(0) - 0x20) * 5;
+    for(var j = 0; j < 5; j++)
+      this.scrbuf[scrbufIndex++] = fonts.ASCII[charIndex++];
+
+    // Spacing between chars
+    scrbufIndex++;
+  }
 };
 
 Nokia5110.prototype.drawBitmap = function (x, y, bitmap, sx, sy){
