@@ -1,5 +1,5 @@
 # Nokia 5110 Graphic LCD
-A simple Tessel library for interacting with the Nokia 5110 display. The library is a port of the [LCD5110_Graph](http://www.rinkydinkelectronics.com/library.php?id=47) library by Henning Karlsen. Most of the functions are supported with the exception of *printNumF* and *printNumI*. Performance is generally good except for printing characters. It seems that the math involved with rendering characters is slow on the Tessel. Entire screen updates take about 200ms on average.
+A simple Tessel library for interacting with the Nokia 5110 display. The library is a port of the [LCD5110_Graph](http://www.rinkydinkelectronics.com/library.php?id=47) library by Henning Karlsen. Most of the functions are supported with the exception of *printNumF* and *printNumI*. Performance is generally good except for printing characters. It seems that the math involved with rendering characters is slow on the Tessel. Entire screen updates take about 53ms on average.
 
 ### Connection Information
 The module uses the double-wide proto-module and can be installed on either side of the Tessel. It occupies two ports but only uses one of them (A or D).
